@@ -1,0 +1,25 @@
+Com instalar  o mysql no Ubuntu 18.04 LTS
+
+# Passo 1: Instalar o mysql
+sudo apt update 
+sudo apt install mysql-server
+
+# Passo 2: configurando o MySQL
+
+sudo mysql_secure_installation
+
+Isto irá levá-lo através de uma série de prompts onde você poderá realizar algumas alterações nas opções de segurança da sua instalação do MySQL. O primeiro prompt irá perguntar se você quer configurar o Plugin Validate Password, que pode ser utilizado para testar a força de sua senha do MySQL.
+
+# Passo 3: Testando o MySQL
+
+systemctl status mysql.service
+
+# Passo 4: Testar a instalação do MySQL
+sudo mysql -u root -p
+
+SHOW DATABASES;
+
+##############
+#instalar o IDE MySQL Workbench
+
+sudo apt install mysql-workbench-community

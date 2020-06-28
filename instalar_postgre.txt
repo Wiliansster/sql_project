@@ -1,0 +1,79 @@
+# Passo 1: 
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+
+# Passo 2:  Mudanddo para a conta postgres
+sudo -i -u postgres
+## acessar o prompt Postgres
+psql
+## Acessando um Prompt do Postgres sem mudar de contas
+sudo -u postgres psql 
+Isso irá logar voce diretamente no Postgress sem o shell 'bash' intermediario
+
+# Passo 3: Criando um novo usuario
+
+sudo -u postgres createuser --interactive
+
+# Passo 4: Criando um novo banco de dados
+sudo -u postgres createdb wilians
+
+# Passo 5 — Abrindo um Prompt do Postgres com o Novo Role
+ 
+sudo -u wilians psql
+
+## Se você quiser que seu usuário se conecte a um banco de dados diferente, você pode fazer isso especificando o banco de dados dessa forma:
+
+psql -d postgres
+
+# Criando e Deletando Tabelas
+
+CREATE TABLE playground (
+    equip_id serial PRIMARY KEY,
+    type varchar (50) NOT NULL,
+    color varchar (25) NOT NULL,
+    location varchar(25) check (location in ('north', 'south', 'west', 'east', 'northeast', 'southeast', 'southwest', 'northwest')),
+    install_date date
+);
+
+# ver a tabela
+\d
+\dt
+
+# adicionado dados a tabela
+INSERT INTO playground (type, color, location, install_date) VALUES ('slide', 'blue', 'south', '2017-04-28');
+INSERT INTO playground (type, color, location, install_date) VALUES ('swing', 'yellow', 'northwest', '2018-08-16');
+
+# Recupere a informação que você adicionou digitando:
+SELECT * FROM playground;
+
+# deletar linha
+DELETE FROM playground WHERE type = 'slide';
+
+# Addicionando e deletando coluna
+ALTER TABLE playground ADD last_maint date;
+
+ALTER TABLE playground DROP last_maint;
+
+# Atualizando dados da tabela
+UPDATE playground SET color = 'red' WHERE type = 'swing';
+
+
+#######################33
+PgAdmi 4
+##############
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
+
+sudo apt install pgadmin4 pgadmin4-apache2
+
+# check stata 
+systemctl status apache2
+
+# If you have UFW firewall configured, allow http and https traffic.
+sudo ufw allow http
+sudo ufw allow https
+
+# configura pgadmin4
+ALTER USER nome_usuario PASSWORD 'senha';
+
+
